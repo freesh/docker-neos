@@ -1,0 +1,99 @@
+version: "3.1"
+services:
+
+  mariadb:
+    image: mariadb:10.1
+    container_name: leanferret-mariadb
+    #working_dir: /application
+    volumes:
+      - "./Data/Docker/Database:/var/lib/mysql"
+      #- ./App:/application
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=toor
+      - MYSQL_PASSWORD=toor
+    ports:
+      - "8083:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    #container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=toor
+      - PMA_PASSWORD=toor
+    restart: always
+    ports:
+      - 8082:80
+    volumes:
+      - /sessions
+
+  webserver:
+    image: nginx:alpine
+    container_name: leanferret-webserver
+    working_dir: /application
+    volumes:
+      - ./App:/application:cached
+      - ./Docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+
+  php7-fpm:
+    build: Docker/php
+    container_name: leanferret-php7-fpm
+    working_dir: /application
+    secrets:
+      - id_rsa.pub
+      - id_rsa
+    volumes:
+      - ./App:/application:cached
+      #- ./Docker/php/php-ini-overrides.ini:/etc/php/7.0/fpm/conf.d/99-overrides.ini
+      - ./Docker/ssh/config:/home/www-data/.ssh/config
+    #environment:
+      #- SSH_AUTH_SOCK:/ssh-agent
+
+secrets:
+  id_rsa.pub:
+    file: ~/.ssh/id_rsa.pub
+  id_rsa:
+    file: ~/.ssh/id_rsa
+
+
+  #mailcatcher:
+  #  image: schickling/mailcatcher
+  #  environment:
+  #    - MAILCATCHER_PORT_1025_TCP_ADDR=1025
+  #  ports:
+  #    - "1080:1080"
+  #  links:
+  #    - application
+
+  # see: https://github.com/deviantony/docker-elk
+#  elasticsearch:
+#    build: Docker/Elk/elasticsearch/
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+
+#  logstash:
+#    build: Docker/Elk/logstash/
+#    command: -f /etc/logstash/conf.d/
+#    volumes:
+#      - ./docker-elk/logstash/config:/etc/logstash/conf.d
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      - elasticsearch
+
+#  kibana:
+#    build: Docker/Elk/kibana/
+#    volumes:
+#      - ./docker-elk/kibana/config/:/etc/kibana/
+#    ports:
+#      - "5601:5601"
+#    depends_on:
+#      - elasticsearch
