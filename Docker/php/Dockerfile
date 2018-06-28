@@ -3,7 +3,8 @@ FROM php:$phpversion-fpm-alpine
 #WORKDIR "/application"
 
 ARG phpversion=7.0
-RUN apk --update add --no-cache \
+RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
+    && apk --update add --no-cache \
         autoconf \
         bash \
         bzip2 \
@@ -24,23 +25,27 @@ RUN apk --update add --no-cache \
     && apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS \
     ###################
     # pecl
+    && printf "\e[1;34m### RUN pecl install \n \e[0m" \
     && docker-php-source extract \
-    && if [[ "$phpversion" != "7"* ]] ; \
+    && if [[ ${phpversion:0:1} == "5" ]] ; \
         then  \
-            # acpu for php 5.x
+            printf "\e[1;34mInstall Pecl php 5.x \n \e[0m"; \
             pecl install apcu-4.0.11 imagick; \
             docker-php-ext-enable apcu imagick; \
         else \
+            printf "\e[1;34mInstall Pecl php 7.x \n \e[0m"; \
             pecl install apcu imagick; \
             docker-php-ext-enable apcu imagick; \
     fi \
     && apk del .phpize-deps-configure \
     ####################
     # docker-php-ext-configure
+    && printf "\e[1;34m### RUN docker-php-ext-configure \n \e[0m" \
     && docker-php-ext-configure \
         gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     ####################
     # docker-php-ext-install
+    && printf "\e[1;34m### RUN docker-php-ext-install \n \e[0m" \
     && docker-php-ext-install \
         bcmath \
         gd \
@@ -50,6 +55,7 @@ RUN apk --update add --no-cache \
         pdo_mysql \
     ####################
     # clear
+    && printf "\e[1;34m### Clear \n \e[0m" \
     && apk del \
         autoconf \
         g++ \
@@ -59,4 +65,5 @@ RUN apk --update add --no-cache \
     && docker-php-source delete \
     ####################
     # install composer
+    && printf "\e[1;34m### Install composer \n \e[0m" \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
