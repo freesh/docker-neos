@@ -14,9 +14,15 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 
 ```make help``` | list all commands
 
+```make setup``` | Setup docker environment
+
+```make config``` | Show configuration from .env and rendered docker-compose.yml
+
+```make install``` | Install project -> start build process and composer install
+
 ### Composer
 
-```make composer-install``` | run _composer install_ on php container
+```make composer-install``` or ```make ci```| run _composer install_ on php container
 
 ### Docker
 

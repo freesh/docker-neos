@@ -1,7 +1,7 @@
 ###############################################################################
 #                                VARIABLES                                    #
 ###############################################################################
-include .env
+-include .env
 export
 SHELL=/bin/bash
 WORKDIR=App
@@ -12,10 +12,12 @@ WORKDIR=App
 ###############################################################################
 help:
 	@echo ""
-	@echo "Command           | shorthand | describtion"
+	@echo "Command           | Shorthand | Description"
 	@echo "-------------------------------------------------------------------"
-	@echo " install          |           | Install project"
-	@echo " composer-install |           | execute composer install"
+	@echo " help             |           | List all commands
+	@echo " setup            |           | Setup docker environment"
+	@echo " install          |           | Install project -> start build process and composer install"
+	@echo " config           |           | Show configuration from .env and rendered docker-compose.yml"
 	@echo ""
 	@echo "Docker Commands"
 	@echo "-------------------------------------------------------------------"
@@ -28,11 +30,20 @@ help:
 	@echo " ssh              |           | opens a bash with ssh [user: www-data]"
 	@echo " ssh-root         |           | opens a bash with ssh [user: root]"
 	@echo ""
+	@echo "Composer Commands"
+	@echo "-------------------------------------------------------------------"
+	@echo " composer-install | ci        | execute composer install"
+	@echo ""
 	@echo "Neos Commands"
 	@echo "-------------------------------------------------------------------"
-	@echo " neos-cache-flush | ncf       | flush neos cache"
-	@echo " neos-clone       | nc        | clone project from choosen preset [package: sitegeist/magicwand]"
+	@echo " neos-cache-flush | ncf       | Flush neos cache"
+	@echo " neos-clone       | nc        | Clone project from choosen preset [package: sitegeist/magicwand]"
 
+###############################################################################
+#                                  INSTALL                                    #
+###############################################################################
+setup:
+	cp ./.env.sample ./.env
 ###############################################################################
 #                                  INSTALL                                    #
 ###############################################################################
@@ -44,16 +55,23 @@ install:
 	
 
 config:
-	echo "Php version: $(PHPVERSION)"
+	@echo ".env config"
+	@echo "-------------"
+	@echo "Php version: $(PHPVERSION)"
+	@echo ""
+	@echo "docker config"
+	@echo "-------------"
+	@docker-compose config
 
 ###############################################################################
 #                                  COMPOSER INSTALL                           #
 ###############################################################################
+ci: composer-install
 composer-install:
 	@docker-compose exec --user www-data php-fpm ssh-agent composer install
 
 ###############################################################################
-#                                  Docker                           #
+#                                  Docker                                     #
 ###############################################################################
 up:
 	@docker-compose up -d
