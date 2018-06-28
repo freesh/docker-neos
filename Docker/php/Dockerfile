@@ -1,4 +1,5 @@
-FROM php:7.0-fpm-alpine
+ARG phpversion
+FROM php:$phpversion-fpm-alpine
 WORKDIR "/application"
 
 RUN apk --update add --no-cache \

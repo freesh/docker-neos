@@ -33,21 +33,21 @@ install:
 #                                  COMPOSER INSTALL                           #
 ###############################################################################
 composer-install:
-	@docker-compose exec --user www-data php7-fpm ssh-agent composer install
+	@docker-compose exec --user www-data php-fpm ssh-agent composer install
 
 ###############################################################################
 #                                  CLONE                                      #
 ###############################################################################
 clone:
-	@docker-compose exec --user www-data php7-fpm ssh-agent ./flow clone:list; \
+	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
 		read -p "Enter preset name: " PRESETNAME; \
-    	docker-compose exec --user www-data php7-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
+    	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
 
 ###############################################################################
 #                                  SSH                                        #
 ###############################################################################
 ssh:
-	docker-compose exec --user www-data php7-fpm ssh-agent $(SHELL)
+	docker-compose exec --user www-data php-fpm ssh-agent $(SHELL)
 
 ssh-root:
-	docker-compose exec --user root php7-fpm ssh-agent $(SHELL)
+	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
