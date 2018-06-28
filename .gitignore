@@ -1,4 +1,4 @@
 /App/*
 !/App/.gitkeep
 /Data
-/.env/
+/.env
