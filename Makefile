@@ -17,6 +17,12 @@ help:
 	@echo " install          |           | Install project"
 	@echo " composer-install |           | execute composer install"
 	@echo ""
+	@echo "Docker Commands"
+	@echo "-------------------------------------------------------------------"
+	@echo " up               |           | Run docker-compose up -d"
+	@echo " down             |           | Run docker-compose down"
+	@echo " logs             |           | Show container logs"
+	@echo ""
 	@echo "SSH Commands"
 	@echo "-------------------------------------------------------------------"
 	@echo " ssh              |           | opens a bash with ssh [user: www-data]"
@@ -26,6 +32,7 @@ help:
 	@echo "-------------------------------------------------------------------"
 	@echo " neos-cache-flush | ncf       | flush neos cache"
 	@echo " neos-clone       | nc        | clone project from choosen preset [package: sitegeist/magicwand]"
+
 ###############################################################################
 #                                  INSTALL                                    #
 ###############################################################################
@@ -44,6 +51,18 @@ config:
 ###############################################################################
 composer-install:
 	@docker-compose exec --user www-data php-fpm ssh-agent composer install
+
+###############################################################################
+#                                  Docker                           #
+###############################################################################
+up:
+	@docker-compose up -d
+
+down:
+	@docker-compose down
+
+logs:
+	@docker-compose logs
 
 ###############################################################################
 #                                  Neos                                       #
