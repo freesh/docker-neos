@@ -40,9 +40,13 @@ services:
     ports:
       - "8080:80"
 
-  php7-fpm:
-    build: Docker/php
-    container_name: leanferret-php7-fpm
+  php-fpm:
+    build:
+      context: ./Docker/php
+      dockerfile: Dockerfile
+      args:
+        phpversion: 7.1
+    container_name: neos-php-fpm
     working_dir: /application
     secrets:
       - id_rsa.pub
