@@ -54,7 +54,7 @@ services:
       - id_rsa
     volumes:
       - ./App:/application:cached
-      #- ./Docker/php/php-ini-overrides.ini:/etc/php/7.0/fpm/conf.d/99-overrides.ini
+      - ./Docker/php/php.ini:/usr/local/etc/php/php.ini
       - ./Docker/ssh/config:/home/www-data/.ssh/config
     #environment:
       #- SSH_AUTH_SOCK:/ssh-agent

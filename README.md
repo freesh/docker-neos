@@ -59,4 +59,4 @@ The local image build will be taged und reused for other projects with the same 
 
 ### php.ini
 
-tbd.
+The php.ini can be found and edited in _/Docker/php/php.ini_. This file will be mounted in the container.
