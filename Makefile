@@ -1,6 +1,8 @@
 ###############################################################################
 #                                VARIABLES                                    #
 ###############################################################################
+include .env
+export
 SHELL=/bin/bash
 WORKDIR=App
 #.PHONY: build
@@ -28,6 +30,9 @@ install:
 	cd ${WORKDIR} && nvm use && yarn install && yarn build
 	#&& ln -sf ./Build/Githooks/pre-commit ./.git/hooks/pre-commit
 	
+
+config:
+	echo "Php version: $(PHPVERSION)"
 
 ###############################################################################
 #                                  COMPOSER INSTALL                           #

@@ -1,7 +1,8 @@
-ARG phpversion
+ARG phpversion=7.0
 FROM php:$phpversion-fpm-alpine
-WORKDIR "/application"
+#WORKDIR "/application"
 
+ARG phpversion=7.0
 RUN apk --update add --no-cache \
         autoconf \
         bash \
@@ -24,12 +25,15 @@ RUN apk --update add --no-cache \
     ###################
     # pecl
     && docker-php-source extract \
-    && pecl install \
-        apcu \
-        imagick \
-    && docker-php-ext-enable \
-        apcu \
-        imagick \
+    && if [[ "$phpversion" != "7"* ]] ; \
+        then  \
+            # acpu for php 5.x
+            pecl install apcu-4.0.11 imagick; \
+            docker-php-ext-enable apcu imagick; \
+        else \
+            pecl install apcu imagick; \
+            docker-php-ext-enable apcu imagick; \
+    fi \
     && apk del .phpize-deps-configure \
     ####################
     # docker-php-ext-configure
@@ -41,7 +45,7 @@ RUN apk --update add --no-cache \
         bcmath \
         gd \
         #iconv \
-        mcrypt \
+        #mcrypt \
         mysqli \
         pdo_mysql \
     ####################

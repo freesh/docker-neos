@@ -41,12 +41,13 @@ services:
       - "8080:80"
 
   php-fpm:
+    image: leanferret-php-fpm:${PHPVERSION}
     build:
       context: ./Docker/php
       dockerfile: Dockerfile
       args:
-        phpversion: 7.1
-    container_name: neos-php-fpm
+        phpversion: ${PHPVERSION}
+    container_name: leanferret-php${PHPVERSION}-fpm
     working_dir: /application
     secrets:
       - id_rsa.pub
