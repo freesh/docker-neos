@@ -98,6 +98,9 @@ The local image build will be tagged und reused for other projects with the same
 
 ## TBD
 
+- simplify sending custom commands to container
+- configurable configfile paths in .env
+- seperate config files from dockerfiles
 - create prebuild images
 - create testing images
 - build production images command
