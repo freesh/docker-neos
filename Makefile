@@ -11,16 +11,21 @@ WORKDIR=App
 #                                  HELP                                       #
 ###############################################################################
 help:
-	@echo "Available Commands"
-	@echo "------------------"
-	@echo "install			- Install project"
-	@echo "composer-install	- execute composer install"
 	@echo ""
-	@echo "clone			- clone project from choosen preset [package: sitegeist/magicwand]"
+	@echo "Command           | shorthand | describtion"
+	@echo "-------------------------------------------------------------------"
+	@echo " install          |           | Install project"
+	@echo " composer-install |           | execute composer install"
 	@echo ""
-	@echo "ssh			- opens a bash with ssh [user: www-data]"
-	@echo "ssh-root		- opens a bash with ssh [user: root]"
-
+	@echo "SSH Commands"
+	@echo "-------------------------------------------------------------------"
+	@echo " ssh              |           | opens a bash with ssh [user: www-data]"
+	@echo " ssh-root         |           | opens a bash with ssh [user: root]"
+	@echo ""
+	@echo "Neos Commands"
+	@echo "-------------------------------------------------------------------"
+	@echo " neos-cache-flush | ncf       | flush neos cache"
+	@echo " neos-clone       | nc        | clone project from choosen preset [package: sitegeist/magicwand]"
 ###############################################################################
 #                                  INSTALL                                    #
 ###############################################################################
@@ -41,12 +46,17 @@ composer-install:
 	@docker-compose exec --user www-data php-fpm ssh-agent composer install
 
 ###############################################################################
-#                                  CLONE                                      #
+#                                  Neos                                       #
 ###############################################################################
-clone:
+nc: neos-clone
+neos-clone:
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
 		read -p "Enter preset name: " PRESETNAME; \
     	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
+
+ncf: cache-flush
+neos-cache-flush:
+	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush --yes
 
 ###############################################################################
 #                                  SSH                                        #
