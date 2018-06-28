@@ -9,30 +9,28 @@ This is a docker setup for local development with php and nginx for Neos CMS (ht
 4. run ```docker-compose up -d```
 5. create your project in ./App/
 
-## Run Application
 
-**Run**
+## Commands
 
-```docker-compose up -d```
+```make help``` | list all commands
 
-visit: http://localhost:8080
+### Composer
 
-**Stop**
+```make composer-install``` | run _composer install_ on php container
 
-```docker-compose down```
+### Docker
 
+```make up``` | Run _docker-compose -d_ and visit: http://localhost:8080
 
-## Access php container
+```make down``` | Run _docker-compose down_
 
-**bash with ssh-agent as web or root user**
+```make logs``` | Show container logs
 
-```make ssh```
+### SSH php container
 
-```make ssh-root```
+```make ssh``` | bash with ssh-agent as www-data user
 
-**composer install in container**
-
-```make composer-install```
+```make ssh-root``` | bash with ssh-agent as root user
 
 **call example command with ssh-agent**
 
@@ -40,6 +38,11 @@ visit: http://localhost:8080
 
 ```docker-compose --user www-data php-fpm ssh-agent ./flow clone:preset live```
 
+### Neos commands
+
+```make neos-cache-flush``` or ```make ncf``` | Clear cache
+
+```make neos-clone``` or ```make nc``` | Clone data from existing neos system with sitegeist/magicwand
 
 ## Nginx configuration
 
