@@ -5,14 +5,15 @@ This is a docker setup for local development with php and nginx for Neos CMS (ht
 ## Setup
 
 1. clone repository
-
-2. create your project in ./App/
+2. configure .env
+4. run ```docker-compose up -d```
+5. create your project in ./App/
 
 ## Run Application
 
 **Run**
 
-```docker-compose run -d```
+```docker-compose up -d```
 
 visit: http://localhost:8080
 
@@ -25,27 +26,36 @@ visit: http://localhost:8080
 
 **bash with ssh-agent as web or root user**
 
-```docker exec -i -t --user www-data leanferret-php7-fpm ssh-agent /bin/bash```
+```make ssh```
 
-```docker exec -i -t --user root leanferret-php7-fpm ssh-agent /bin/bash```
+```make ssh-root```
 
+**composer install in container**
+
+```make composer-install```
 
 **call example command with ssh-agent**
 
-```docker exec -i -t --user www-data leanferret-php7-fpm ssh-agent composer install```
+```docker-compose --user www-data php-fpm ssh-agent composer install```
 
-```docker exec -i -t --user www-data leanferret-php7-fpm ssh-agent ./flow clone:preset live```
+```docker-compose --user www-data php-fpm ssh-agent ./flow clone:preset live```
 
 
 ## Nginx configuration
 
-tbd.
+The nginx.conf will be found in _./Docker/nginx/nginx.conf_ and mounted in the _webserver_ container.
 
 ## Php configuration
 
 ### php versions
 
-tbd.
+The used php version can configured in ./.env file
+
+```PHPVERSION=7.2```
+
+php 5.x is also supported. See available version numbers at https://store.docker.com/images/php. Always the alpine images are used.
+
+The local image build will be taged und reused for other projects with the same php version.
 
 ### php.ini
 
