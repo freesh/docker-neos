@@ -5,9 +5,14 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 ## Setup
 
 1. clone repository
-2. configure .env
-4. run ```docker-compose up -d```
-5. create your project in ./App/
+2. run ```make setup```
+3. configure .env
+4. run ```make up```
+5. copy your project to ./App/
+
+6. run ```make composer-install```
+7. run ```make yarn-install```
+8. run ```make yarn-watch``` or ```make yarn-build```
 
 
 ## Commands
@@ -23,6 +28,14 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 ### Composer
 
 ```make composer-install``` or ```make ci```| run _composer install_ on php container
+
+### Yarn
+
+```make yarn-install``` or ```make yi``` | execute _yarn install_ on node container"
+
+```make yarn-build``` or ```make yb``` | execute _yarn build_ on node container"
+
+```make yarn-watch``` or ```make yw``` | execute _yarn watch_ on node container"
 
 ### Docker
 
@@ -69,3 +82,22 @@ The local image build will be tagged und reused for other projects with the same
 ### php.ini
 
 The php.ini can be found and edited in _/Docker/php/php.ini_. This file will be mounted in the container.
+
+## Node configuration
+
+### node version
+
+The used node version can configured in ./.env file
+
+```NODEVERSION=6```
+
+See all available version numbers at https://store.docker.com/images/node. Always the alpine images are used.
+
+The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
+
+
+## TBD
+
+- create prebuild images
+- create testing images
+- build production images command

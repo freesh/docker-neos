@@ -16,20 +16,6 @@ services:
     ports:
       - "8083:3306"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    #container_name: phpmyadmin
-    environment:
-      - PMA_HOST=mariadb
-      - PMA_PORT=3306
-      - PMA_USER=toor
-      - PMA_PASSWORD=toor
-    restart: always
-    ports:
-      - 8082:80
-    volumes:
-      - /sessions
-
   webserver:
     image: nginx:alpine
     container_name: leanferret-webserver
@@ -59,6 +45,24 @@ services:
     #environment:
       #- SSH_AUTH_SOCK:/ssh-agent
 
+  node:
+    image: leanferret-node:${NODEVERSION}-alpine
+    build:
+      context: ./Docker/node
+      dockerfile: Dockerfile
+      args:
+        phpversion: ${NODEVERSION}
+    container_name: leanferret-node-${NODEVERSION}
+    working_dir: /application
+    user: "node"
+    volumes:
+      - ./App:/application:cached
+      - node_modules:/application/node_modules
+    command: "node"
+
+volumes:
+  node_modules:
+
 secrets:
   id_rsa.pub:
     file: ~/.ssh/id_rsa.pub
@@ -74,6 +78,20 @@ secrets:
   #    - "1080:1080"
   #  links:
   #    - application
+
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    #container_name: phpmyadmin
+#    environment:
+#      - PMA_HOST=mariadb
+#      - PMA_PORT=3306
+#      - PMA_USER=toor
+#      - PMA_PASSWORD=toor
+#    restart: always
+#    ports:
+#      - 8082:80
+#    volumes:
+#      - /sessions
 
   # see: https://github.com/deviantony/docker-elk
 #  elasticsearch:

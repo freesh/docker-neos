@@ -34,6 +34,12 @@ help:
 	@echo "-------------------------------------------------------------------"
 	@echo " composer-install | ci        | execute composer install"
 	@echo ""
+	@echo "Yarn Commands"
+	@echo "-------------------------------------------------------------------"
+	@echo " yarn-install     | yi        | execute yarn install"
+	@echo " yarn-build       | yb        | execute yarn build"
+	@echo " yarn-watch       | yw        | execute yarn watch"
+	@echo ""
 	@echo "Neos Commands"
 	@echo "-------------------------------------------------------------------"
 	@echo " neos-cache-flush | ncf       | Flush neos cache"
@@ -64,11 +70,26 @@ config:
 	@docker-compose config
 
 ###############################################################################
-#                                  COMPOSER INSTALL                           #
+#                                  COMPOSER                                   #
 ###############################################################################
 ci: composer-install
 composer-install:
 	@docker-compose exec --user www-data php-fpm ssh-agent composer install
+
+###############################################################################
+#                                  Yarn                                       #
+###############################################################################
+yi: yarn-install
+yarn-install:
+	@docker-compose run node yarn install
+
+yb: yarn-build
+yarn-build:
+	@docker-compose run node yarn build
+
+yw: yarn-watch
+yarn-watch:
+	@docker-compose run node yarn watch
 
 ###############################################################################
 #                                  Docker                                     #
