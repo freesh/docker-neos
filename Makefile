@@ -64,6 +64,7 @@ config:
 	@echo ".env config"
 	@echo "-------------"
 	@echo "Php version: $(PHPVERSION)"
+	@echo "Node version: $(NODEVERSION)"
 	@echo ""
 	@echo "docker config"
 	@echo "-------------"
