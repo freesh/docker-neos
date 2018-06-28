@@ -1,6 +1,6 @@
 # Docker Neos
 
-This is a docker setup for local development with php and nginx for Neos CMS (https://www.neos.io)
+This is a docker setup for local development with php, mariadb and nginx for Neos CMS (https://www.neos.io)
 
 ## Setup
 
@@ -20,7 +20,7 @@ This is a docker setup for local development with php and nginx for Neos CMS (ht
 
 ### Docker
 
-```make up``` | Run _docker-compose -d_ and visit: http://localhost:8080
+```make up``` | Run _docker-compose up -d_ and visit: http://localhost:8080
 
 ```make down``` | Run _docker-compose down_
 
@@ -56,9 +56,9 @@ The used php version can configured in ./.env file
 
 ```PHPVERSION=7.2```
 
-php 5.x is also supported. See available version numbers at https://store.docker.com/images/php. Always the alpine images are used.
+php 5.x is also supported. See all available version numbers at https://store.docker.com/images/php. Always the fpm-alpine images are used.
 
-The local image build will be taged und reused for other projects with the same php version.
+The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
 
 ### php.ini
 
