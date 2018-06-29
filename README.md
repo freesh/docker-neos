@@ -7,13 +7,8 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 1. clone repository
 2. run ```make setup```
 3. configure .env
-4. run ```make up```
 5. copy your project to ./App/
-
-6. run ```make composer-install```
-7. run ```make yarn-install```
-8. run ```make yarn-watch``` or ```make yarn-build```
-
+5. run ```make install``` | this runs ```make up make composer-install make yarn-install make yarn-build```
 
 ## Commands
 
@@ -23,7 +18,7 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 
 ```make config``` | Show configuration from .env and rendered docker-compose.yml
 
-```make install``` | Install project -> start build process and composer install
+```make install``` | Install project -> start docker-compose, composer install and the build process
 
 ### Composer
 
@@ -95,6 +90,16 @@ See all available version numbers at https://store.docker.com/images/node. Alway
 
 The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
 
+
+## Overrides
+
+### docker-compose.override.yml
+
+Create a _docker-compose.override.yml_ file to override the default _docker-compose.yml_. This file is automaticly loaded and merged by running ```docker-compose up```. For more informations see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files
+
+### own configurationfiles
+
+tbd.
 
 ## TBD
 
