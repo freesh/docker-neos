@@ -58,10 +58,6 @@ This is a docker setup for local development with php, mariadb and nginx for Neo
 
 ```make neos-clone``` or ```make nc``` | Clone data from existing neos system with sitegeist/magicwand
 
-## Nginx configuration
-
-The nginx.conf will be found in _./Docker/nginx/nginx.conf_ and mounted in the _webserver_ container.
-
 ## Php configuration
 
 ### php versions
@@ -76,7 +72,7 @@ The local image build will be tagged und reused for other projects with the same
 
 ### php.ini
 
-The php.ini can be found and edited in _/Docker/php/php.ini_. This file will be mounted in the container.
+The php.ini can be found and edited in _/Docker/Config/php/php.ini_. This file will be mounted in the _php-fpm_ container.
 
 ## Node configuration
 
@@ -100,7 +96,7 @@ The used nginx port can configured in ./.env file
 
 ### nginx.conf
 
-The nginx.conf can be found and edited in _/Docker/nginx/nginx.conf_. This file will be mounted in the container.
+The nginx.conf can be found and edited in _/Docker/Config/nginx/nginx.conf_. This file will be mounted in the _webserver_ container.
 
 ## Overrides
 
