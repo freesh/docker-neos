@@ -113,7 +113,7 @@ Create a _docker-compose.override.yml_ file to override the default _docker-comp
 Examlple:
 
 ```yaml
-version: "3.1"
+version: "3.6"
 services:
   webserver:
     ports:
