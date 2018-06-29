@@ -1,13 +1,11 @@
-version: "3.1"
+version: "3.6"
 services:
 
   mariadb:
     image: mariadb:10.1
     container_name: leanferret-mariadb
-    #working_dir: /application
     volumes:
-      - "./Data/Docker/Database:/var/lib/mysql"
-      #- ./App:/application
+      - "./.Data/Docker/Database:/var/lib/mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=toor
       - MYSQL_DATABASE=app
@@ -22,14 +20,14 @@ services:
     working_dir: /application
     volumes:
       - ./App:/application:cached
-      - ./Docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./Docker/Config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "${NGINX_PORT}:80"
 
   php-fpm:
     image: leanferret-php-fpm:${PHP_VERSION}
     build:
-      context: ./Docker/php
+      context: ./Docker/Dockerfile/php
       dockerfile: Dockerfile
       args:
         phpversion: ${PHP_VERSION}
@@ -40,15 +38,15 @@ services:
       - id_rsa
     volumes:
       - ./App:/application:cached
-      - ./Docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./Docker/ssh/config:/home/www-data/.ssh/config
+      - ./Docker/Config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./Docker/Config/ssh/config:/home/www-data/.ssh/config
     #environment:
       #- SSH_AUTH_SOCK:/ssh-agent
 
   node:
     image: leanferret-node:${NODE_VERSION}-alpine
     build:
-      context: ./Docker/node
+      context: ./Docker/Dockerfile/node
       dockerfile: Dockerfile
       args:
         phpversion: ${NODE_VERSION}

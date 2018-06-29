@@ -1,6 +1,6 @@
 /App/*
 !/App/.gitkeep
-/Data
+/.Data
 /.env
 /docker-compose.override.yml
 /docker-compose.override.yaml
