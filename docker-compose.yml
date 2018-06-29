@@ -24,16 +24,16 @@ services:
       - ./App:/application:cached
       - ./Docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8080:80"
+      - "${NGINX_PORT}:80"
 
   php-fpm:
-    image: leanferret-php-fpm:${PHPVERSION}
+    image: leanferret-php-fpm:${PHP_VERSION}
     build:
       context: ./Docker/php
       dockerfile: Dockerfile
       args:
-        phpversion: ${PHPVERSION}
-    container_name: leanferret-php${PHPVERSION}-fpm
+        phpversion: ${PHP_VERSION}
+    container_name: leanferret-php${PHP_VERSION}-fpm
     working_dir: /application
     secrets:
       - id_rsa.pub
@@ -46,13 +46,13 @@ services:
       #- SSH_AUTH_SOCK:/ssh-agent
 
   node:
-    image: leanferret-node:${NODEVERSION}-alpine
+    image: leanferret-node:${NODE_VERSION}-alpine
     build:
       context: ./Docker/node
       dockerfile: Dockerfile
       args:
-        phpversion: ${NODEVERSION}
-    container_name: leanferret-node-${NODEVERSION}
+        phpversion: ${NODE_VERSION}
+    container_name: leanferret-node-${NODE_VERSION}
     working_dir: /application
     user: "node"
     volumes:
