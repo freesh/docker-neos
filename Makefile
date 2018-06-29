@@ -53,18 +53,14 @@ setup:
 ###############################################################################
 #                                  INSTALL                                    #
 ###############################################################################
-install:
-	#@set -e
-	#@test $(site) || (echo "site is not set" && exit 1)
-	cd ${WORKDIR} && nvm use && yarn install && yarn build
-	#&& ln -sf ./Build/Githooks/pre-commit ./.git/hooks/pre-commit
-	
+install: up composer-install yarn-install yarn-build
 
 config:
 	@echo ".env config"
 	@echo "-------------"
-	@echo "Php version: $(PHPVERSION)"
-	@echo "Node version: $(NODEVERSION)"
+	@echo "Php version: $(PHP_VERSION)"
+	@echo "Node version: $(NODE_VERSION)"
+	@echo "Nginx port: $(NGINX_PORT)"
 	@echo ""
 	@echo "docker config"
 	@echo "-------------"
