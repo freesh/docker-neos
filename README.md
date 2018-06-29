@@ -97,6 +97,20 @@ The local image build will be tagged und reused for other projects with the same
 
 Create a _docker-compose.override.yml_ file to override the default _docker-compose.yml_. This file is automaticly loaded and merged by running ```docker-compose up```. For more informations see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files
 
+Examlple:
+
+```
+version: "3.1"
+services:
+  webserver:
+    ports:
+      - "8080:80" # neos site 1
+      - "8081:80" # neos site 2
+      - "8082:80" # neos site 3
+```
+_This override is used to set multible ports for the webserver, to call different sites in a multi site setup with neos_
+
+
 ### own configurationfiles
 
 tbd.
