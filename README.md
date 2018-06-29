@@ -126,7 +126,6 @@ tbd.
 
 - simplify sending custom commands to container
 - configurable configfile paths in .env
-- seperate config files from dockerfiles
 - create prebuild images
 - create testing images
 - build production images command
