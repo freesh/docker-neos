@@ -68,7 +68,7 @@ The nginx.conf will be found in _./Docker/nginx/nginx.conf_ and mounted in the _
 
 The used php version can configured in ./.env file
 
-```PHPVERSION=7.2```
+```PHP_VERSION=7.2```
 
 php 5.x is also supported. See all available version numbers at https://store.docker.com/images/php. Always the fpm-alpine images are used.
 
@@ -84,12 +84,23 @@ The php.ini can be found and edited in _/Docker/php/php.ini_. This file will be 
 
 The used node version can configured in ./.env file
 
-```NODEVERSION=6```
+```NODE_VERSION=6```
 
 See all available version numbers at https://store.docker.com/images/node. Always the alpine images are used.
 
 The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
 
+## Nginx Configuration
+
+### Port
+
+The used nginx port can configured in ./.env file
+
+```NGINX_PORT=8080```
+
+### nginx.conf
+
+The nginx.conf can be found and edited in _/Docker/nginx/nginx.conf_. This file will be mounted in the container.
 
 ## Overrides
 
