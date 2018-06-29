@@ -1,6 +1,12 @@
 # Docker Neos
 
-This is a docker setup for local development with php, mariadb and nginx for Neos CMS (https://www.neos.io)
+This is a docker setup for local development with php, mariadb, node and nginx for Neos CMS (https://www.neos.io)
+
+The goal is to get an instant setup, with maximum expandability and simplicity in the configuration, without the shell script hell.
+
+After installation, a normal Neos will run immediately. Customizations can be easily created using .env, docker-compose.orverride.yml, or custom configs that override or extend the default values.
+
+A makefile already includes the basic commands that are executed directly on the containers. e.g. composer, yarn, ssh, flow commands
 
 ## Setup
 
