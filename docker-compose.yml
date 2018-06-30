@@ -2,10 +2,11 @@ version: "3.6"
 services:
 
   mariadb:
-    image: mariadb:10.1
+    image: mariadb:10.3
     container_name: leanferret-mariadb
     volumes:
-      - "./.Data/Docker/Database:/var/lib/mysql"
+      - ./Docker/Config/mariadb/:/etc/mysql/conf.d
+      - ./.Data/Docker/Database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=toor
       - MYSQL_DATABASE=app
