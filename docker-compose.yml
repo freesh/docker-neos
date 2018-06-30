@@ -41,8 +41,7 @@ services:
       - ./App:/project/app:cached
       - ./Docker/Config/php/php.ini:/usr/local/etc/php/php.ini
       - ./Docker/Config/ssh/config:/home/www-data/.ssh/config
-    #environment:
-      #- SSH_AUTH_SOCK:/ssh-agent
+      - ~/.composer/cache:/home/www-data/.composer/cache:cached
 
   node:
     image: leanferret-node:${NODE_VERSION}-alpine
