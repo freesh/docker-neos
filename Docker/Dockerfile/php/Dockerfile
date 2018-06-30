@@ -3,20 +3,22 @@ FROM php:$phpversion-fpm-alpine
 #WORKDIR "/application"
 
 ARG phpversion=7.0
+ENV PHPIZE_DEPS \
+        autoconf \
+        g++ \
+        libtool \
+        make \
+        pcre-dev 
 RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
     && apk --update add --no-cache \
-        autoconf \
         bash \
         bzip2 \
         freetype-dev \
-        g++ \
+        imagemagick \
         imagemagick-dev \
         libjpeg-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
-        libtool \
-        make \
-        pcre-dev \
         # used for neos magicwand and composer
         openssh-client \
         git \
@@ -49,19 +51,11 @@ RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
     && docker-php-ext-install \
         bcmath \
         gd \
-        #iconv \
-        #mcrypt \
         mysqli \
         pdo_mysql \
     ####################
     # clear
     && printf "\e[1;34m### Clear \n \e[0m" \
-    && apk del \
-        autoconf \
-        g++ \
-        libtool \
-        make \
-        pcre-dev \
     && docker-php-source delete \
     ####################
     # install composer
