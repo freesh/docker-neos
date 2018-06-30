@@ -14,7 +14,7 @@ help:
 	@echo ""
 	@echo "Command           | Shorthand | Description"
 	@echo "-------------------------------------------------------------------"
-	@echo " help             |           | List all commands
+	@echo " help             |           | List all commands"
 	@echo " setup            |           | Setup docker environment"
 	@echo " install          |           | Install project -> start build process and composer install"
 	@echo " config           |           | Show configuration from .env and rendered docker-compose.yml"
@@ -48,11 +48,12 @@ help:
 	@echo " neos-clone       | nc        | Clone project from choosen preset [package: sitegeist/magicwand]"
 
 ###############################################################################
-#                                  INSTALL                                    #
+#                                  SETUP                                    #
 ###############################################################################
 setup:
 	if [ ! -f .env ]; then cp ./.env.sample ./.env; fi
 	if [ ! -f docker-compose.override.yml ]; then echo "version: \"3.6\"" >> docker-compose.override.yml; fi
+	if [ -f App/.gitkeep ]; then rm ./App/.gitkeep; fi
 
 ###############################################################################
 #                                  INSTALL                                    #
