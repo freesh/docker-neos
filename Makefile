@@ -108,24 +108,23 @@ logs:
 ###############################################################################
 #                                  Neos                                       #
 ###############################################################################
-nc: neos-clone
-neos-clone:
-	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
-		read -p "Enter preset name: " PRESETNAME; \
-    	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
 
+# experimental
+neos-create:
+	@docker-compose exec --user www-data php-fpm ssh-agent composer create-project neos/neos-base-distribution .
+
+# experimental
 ncf: cache-flush
 neos-cache-flush:
-	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush --yes
+	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush
 
-###############################################################################
-#                                  SSH                                        #
-###############################################################################
-ssh:
-	docker-compose exec --user www-data php-fpm ssh-agent $(SHELL)
+# experimental
+ndm: neos-doctrine-migrate
+neos-doctrine-migrate:
+	@docker-compose exec --user www-data php-fpm ssh-agent ./flow doctrine:migrate
 
-ssh-root:
-	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
+# experimental
+nc: neos-clone
 neos-clone:
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
 		read -p "Enter preset name: " PRESETNAME; \
