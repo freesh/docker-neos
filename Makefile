@@ -27,8 +27,10 @@ help:
 	@echo ""
 	@echo "SSH Commands"
 	@echo "-------------------------------------------------------------------"
-	@echo " ssh              |           | opens a bash with ssh [user: www-data]"
-	@echo " ssh-root         |           | opens a bash with ssh [user: root]"
+	@echo " ssh              |           | opens a php bash with ssh [user: www-data]"
+	@echo " ssh-root         |           | opens a php bash with ssh [user: root]"
+	@echo " ssh-mariadb      |           | opens a mariadb bash with ssh"
+	@echo " ssh-node         |           | opens a node shell with ssh [user: node]"
 	@echo ""
 	@echo "Composer Commands"
 	@echo "-------------------------------------------------------------------"
@@ -123,3 +125,22 @@ ssh:
 
 ssh-root:
 	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
+neos-clone:
+	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
+		read -p "Enter preset name: " PRESETNAME; \
+    	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
+
+###############################################################################
+#                                  SSH                                        #
+###############################################################################
+ssh:
+	docker-compose exec --user www-data php-fpm ssh-agent $(SHELL)
+
+ssh-root:
+	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
+
+ssh-mariadb:
+	docker-compose exec mariadb $(SHELL)
+
+ssh-node:
+	@docker-compose run --user node node /bin/sh

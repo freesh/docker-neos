@@ -49,17 +49,18 @@ services:
       context: ./Docker/Dockerfile/node
       dockerfile: Dockerfile
       args:
-        phpversion: ${NODE_VERSION}
+        nodeversion: ${NODE_VERSION}
     container_name: leanferret-node-${NODE_VERSION}
-    working_dir: /application
+    working_dir: /project/app
     user: "node"
     volumes:
-      - ./App:/application:cached
-      - node_modules:/application/node_modules
+      - ./App:/project/app:cached
+      - ./Docker/Config/node/.yarnrc:/project/.yarnrc
+      - node_yarn:/home/node/yarn
     command: "node"
 
 volumes:
-  node_modules:
+  node_yarn:
 
 secrets:
   id_rsa.pub:
