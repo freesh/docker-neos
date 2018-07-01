@@ -41,6 +41,7 @@ help:
 	@echo " yarn-install     | yi        | execute yarn install"
 	@echo " yarn-build       | yb        | execute yarn build"
 	@echo " yarn-watch       | yw        | execute yarn watch"
+	@echo " yarn-clear       | yc        | empties node_modules volume"
 	@echo ""
 	@echo "Neos Commands"
 	@echo "-------------------------------------------------------------------"
@@ -107,15 +108,19 @@ composer-install:
 ###############################################################################
 yi: yarn-install
 yarn-install:
-	@docker-compose run node yarn install
+	@docker-compose run --rm node yarn install
 
 yb: yarn-build
 yarn-build:
-	@docker-compose run node yarn build
+	@docker-compose run --rm node yarn build
 
 yw: yarn-watch
 yarn-watch:
-	@docker-compose run node yarn watch
+	@docker-compose run --rm node yarn watch
+
+yc: yarn-clear
+yarn-clear:
+	@docker-compose run --rm node rm -Rf ./node_modules/*
 
 ###############################################################################
 #                                  Docker                                     #
@@ -167,4 +172,4 @@ ssh-mariadb:
 	docker-compose exec mariadb $(SHELL)
 
 ssh-node:
-	@docker-compose run --user node node /bin/sh
+	@docker-compose run --rm --user node node /bin/sh
