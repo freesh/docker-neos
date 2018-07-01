@@ -3,9 +3,8 @@ services:
 
   mariadb:
     image: mariadb:${VERSION_MARIADB}
-    container_name: leanferret-mariadb
     volumes:
-      - ${CONF_MARIADB_MYCNF}:/etc/mysql/conf.d
+      - ${CONF_MARIADB_MYCNF}:/etc/mysql/conf.d/my.cnf
       - ./.Data/Docker/Database:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${CRED_MYSQL_ROOT_PASSWORD}
@@ -13,11 +12,10 @@ services:
       - MYSQL_USER=${CRED_MYSQL_USER}
       - MYSQL_PASSWORD=${CRED_MYSQL_PASSWORD}
     ports:
-      - "${PORT_MARIADB}8083:3306"
+      - "${PORT_MARIADB}:3306"
 
   webserver:
     image: nginx:alpine
-    container_name: leanferret-webserver
     working_dir: /project/app
     volumes:
       - ./App:/project/app:cached
@@ -32,7 +30,6 @@ services:
       dockerfile: Dockerfile
       args:
         phpversion: ${VERSION_PHP}
-    container_name: leanferret-php${VERSION_PHP}-fpm
     working_dir: /project/app
     secrets:
       - id_rsa.pub
@@ -50,17 +47,18 @@ services:
       dockerfile: Dockerfile
       args:
         nodeversion: ${VERSION_NODE}
-    container_name: leanferret-node-${VERSION_NODE}
     working_dir: /project/app
     user: "node"
     volumes:
       - ./App:/project/app:cached
       - ${CONF_NODE_YARNRC}:/project/.yarnrc
-      - node_yarn:/home/node/yarn
+      - node_yarn_cache:/home/node/yarn
+      - node_modules:/project/app/node_modules
     command: "node"
 
 volumes:
-  node_yarn:
+  node_yarn_cache:
+  node_modules:
 
 secrets:
   id_rsa.pub:

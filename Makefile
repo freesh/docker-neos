@@ -143,7 +143,7 @@ neos-create:
 	@docker-compose exec --user www-data php-fpm ssh-agent composer create-project neos/neos-base-distribution .
 
 # experimental
-ncf: cache-flush
+ncf: neos-cache-flush
 neos-cache-flush:
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush
 
