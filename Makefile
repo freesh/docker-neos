@@ -52,9 +52,9 @@ help:
 #                                  SETUP                                    #
 ###############################################################################
 setup:
-	if [ ! -f .env ]; then cp ./.env.sample ./.env; fi
-	if [ ! -f docker-compose.override.yml ]; then echo "version: \"3.6\"" >> docker-compose.override.yml; fi
-	if [ -f App/.gitkeep ]; then rm ./App/.gitkeep; fi
+	@if [ ! -f .env ]; then cp ./.env.sample ./.env; fi
+	@if [ ! -f docker-compose.override.yml ]; then echo "version: \"3.6\"" >> docker-compose.override.yml; fi
+	@if [ -f App/.gitkeep ]; then rm ./App/.gitkeep; fi
 
 ###############################################################################
 #                                  INSTALL                                    #
