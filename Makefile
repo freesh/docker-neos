@@ -126,7 +126,7 @@ yarn-clear:
 #                                  Docker                                     #
 ###############################################################################
 up:
-	@docker-compose up -d
+	@docker-compose up --scale node=0 -d
 
 down:
 	@docker-compose down
