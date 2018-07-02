@@ -53,6 +53,7 @@ RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
         gd \
         mysqli \
         pdo_mysql \
+        opcache \
     ####################
     # clear
     && printf "\e[1;34m### Clear \n \e[0m" \
