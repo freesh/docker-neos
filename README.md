@@ -119,5 +119,6 @@ make ssh
 
 - Documentation: Commands
 - Documentation: Configuration and Expandability
+- Documentation: Caching for yarn and composer
 - Documentation: Kickstart projects with butler, not only Neos. TYPO3 and Node projects are possible too.
 - Documentation: Best practice
