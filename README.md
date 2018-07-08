@@ -8,118 +8,73 @@ After installation, a normal Neos will run immediately. Customizations can be ea
 
 A makefile already includes the basic commands that are executed directly on the containers. e.g. composer, yarn, ssh, flow commands
 
+## Documentation
 
-## Commands
+**Basics**
 
-```make help``` | list all commands
+* [Getting Started](basics/getting-started.md)
+* [CLI Commands](basics/commands.md)
 
-```make setup``` | Setup docker environment
 
-```make config``` | Show configuration from .env and rendered docker-compose.yml
+## Getting Started
 
-```make install``` | Install project -> start docker-compose, composer install and the build process
+**1. Init**
 
-### Composer
-
-```make composer-install``` or ```make ci```| run _composer install_ on php container
-
-### Yarn
-
-```make yarn-install``` or ```make yi``` | execute _yarn install_ on node container"
-
-```make yarn-build``` or ```make yb``` | execute _yarn build_ on node container"
-
-```make yarn-watch``` or ```make yw``` | execute _yarn watch_ on node container"
-
-### Docker
-
-```make up``` | Run _docker-compose up -d_ and visit: http://localhost:8080
-
-```make down``` | Run _docker-compose down_
-
-```make logs``` | Show container logs
-
-### SSH php container
-
-```make ssh``` | bash with ssh-agent as www-data user
-
-```make ssh-root``` | bash with ssh-agent as root user
-
-**call example command with ssh-agent**
-
-```docker-compose --user www-data php-fpm ssh-agent composer install```
-
-```docker-compose --user www-data php-fpm ssh-agent ./flow clone:preset live```
-
-### Neos commands
-
-```make neos-cache-flush``` or ```make ncf``` | Clear cache
-
-```make neos-clone``` or ```make nc``` | Clone data from existing neos system with sitegeist/magicwand
-
-## Php configuration
-
-### php versions
-
-The used php version can configured in ./.env file
-
-```PHP_VERSION=7.2```
-
-php 5.x is also supported. See all available version numbers at https://store.docker.com/images/php. Always the fpm-alpine images are used.
-
-The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
-
-### php.ini
-
-The php.ini can be found and edited in _/Docker/Config/php/php.ini_. This file will be mounted in the _php-fpm_ container.
-
-## Node configuration
-
-### node version
-
-The used node version can configured in ./.env file
-
-```NODE_VERSION=6```
-
-See all available version numbers at https://store.docker.com/images/node. Always the alpine images are used.
-
-The local image build will be tagged und reused for other projects with the same php version. For saving discspace.
-
-## Nginx Configuration
-
-### Port
-
-The used nginx port can configured in ./.env file
-
-```NGINX_PORT=8080```
-
-### nginx.conf
-
-The nginx.conf can be found and edited in _/Docker/Config/nginx/nginx.conf_. This file will be mounted in the _webserver_ container.
-
-## Overrides
-
-### docker-compose.override.yml
-
-Create a _docker-compose.override.yml_ file to override the default _docker-compose.yml_. This file is automaticly loaded and merged by running ```docker-compose up```. For more informations see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files
-
-Examlple:
-
+```bash
+$ mkdir myprojectfolder
+$ cd myprojectfolder
+$ git clone git@github.com:freesh/docker-neos.git .
+$ make setup
 ```
-version: "3.1"
-services:
-  webserver:
-    ports:
-      - "8080:80" # neos site 1
-      - "8081:80" # neos site 2
-      - "8082:80" # neos site 3
+
+**2. Settings**
+
+open .env file and change default versions and paths for your needs.
+
+**3. Start docker**
+
+```bash
+$ make up
 ```
-_This override is used to set multible ports for the webserver, to call different sites in a multi site setup with neos_
+
+**4. Setup project**
+
+Copy your project files to _./App_, or ssh in to the php container and init your project with composer. For database credentials take a look in the generated _.env_ file. Don't forget to configure your project for usage with the configured http port.
+
+```bash
+$ make ssh
+> composer ...
+```
+
+**5. Enjoy**
+
+http://localhost:8080/
 
 
-### own configurationfiles
+## Configurations
 
-tbd.
+You can change default configurations on two ways:
+
+The first way is to manipulate the default files and versioning these with your project. This is recommended if the changes are project relevant.
+
+The seccond way is to use local override files, wich are not versioned. This ist recommended for changes there just relevant on your own host stystem.
+
+### .env file
+
+To configure versions (php, node), ports, file path and some other stuff, you can make changes through the generated _.env_ file.
+
+For more informations about possible versions, please take a look at the configuration section in the documentation.
+
+### Override docker-compose settings
+
+To override the default docker-compose.yml you can use the docker-compose.override.yml
+
+### Appending and extensing make commands
+
+Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file.
+
+
+
 
 ## TBD
 
