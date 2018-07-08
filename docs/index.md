@@ -3,10 +3,7 @@
 ## Basics
 
 * [Getting Started](basics/getting-started.md)
-
-## Commands
-
-* [Commands](commands/commands.md)
+* [Commands](basics/commands.md)
 <!-- * [Extending Commands](commands/extending-commands.md)-->
 <!-- * [Add own Commands](commands/own-commands.md)-->
 
