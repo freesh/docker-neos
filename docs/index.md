@@ -6,13 +6,9 @@
 
 ## Commands
 
-tbd.
-
-<!-- * [Basic](commands/basic.md) -->
-<!-- * [Docker](commands/docker.md) -->
-<!-- * [Composer](commands/composer.md) -->
-<!-- * [Yarn](commands/yarn.md) -->
-<!-- * [Neos](commands/neos.md) -->
+* [Commands](commands/commands.md)
+<!-- * [Extending Commands](commands/extending-commands.md)-->
+<!-- * [Add own Commands](commands/own-commands.md)-->
 
 ## Configurations
 
