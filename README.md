@@ -18,6 +18,7 @@ A makefile already includes the basic commands that are executed directly on the
 **Configuration**
 
 * [Configuration](docs/configuration/configuration.md)
+* [Override and Extend Makefile](docs/configuration/extend-makefile.md)
 
 
 ## Getting Started

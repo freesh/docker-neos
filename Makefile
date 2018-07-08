@@ -2,6 +2,8 @@
 #                                VARIABLES                                    #
 ###############################################################################
 -include .env
+# include own override file for prepending commands
+-include ./local/Makefile.override.prepend
 export
 SHELL=/bin/bash
 WORKDIR=App
@@ -10,7 +12,7 @@ WORKDIR=App
 ###############################################################################
 #                                  HELP                                       #
 ###############################################################################
-help:
+help::
 	@echo ""
 	@echo "Command           | Shorthand | Description"
 	@echo "-------------------------------------------------------------------"
@@ -51,7 +53,7 @@ help:
 ###############################################################################
 #                                  SETUP                                    #
 ###############################################################################
-setup:
+setup::
 	@if [ ! -f .env ]; then cp ./.env.sample ./.env; fi
 	@if [ ! -f docker-compose.override.yml ]; then echo "version: \"3.6\"" >> docker-compose.override.yml; fi
 	@if [ -f App/.gitkeep ]; then rm ./App/.gitkeep; fi
@@ -59,9 +61,9 @@ setup:
 ###############################################################################
 #                                  INSTALL                                    #
 ###############################################################################
-install: up composer-install yarn-install yarn-build
+install:: up composer-install yarn-install yarn-build
 
-config:
+config::
 	@echo ".env config"
 	@echo "______________________________________________"
 	@echo ""
@@ -99,39 +101,39 @@ config:
 ###############################################################################
 #                                  COMPOSER                                   #
 ###############################################################################
-ci: composer-install
-composer-install:
+ci:: composer-install
+composer-install::
 	@docker-compose exec --user www-data php-fpm ssh-agent composer install
 
 ###############################################################################
 #                                  Yarn                                       #
 ###############################################################################
-yi: yarn-install
-yarn-install:
+yi:: yarn-install
+yarn-install::
 	@docker-compose run --rm node yarn install
 
-yb: yarn-build
-yarn-build:
+yb:: yarn-build
+yarn-build::
 	@docker-compose run --rm node yarn build
 
-yw: yarn-watch
-yarn-watch:
+yw:: yarn-watch
+yarn-watch::
 	@docker-compose run --rm node yarn watch
 
-yc: yarn-clear
-yarn-clear:
+yc:: yarn-clear
+yarn-clear::
 	@docker-compose run --rm node rm -Rf ./node_modules/*
 
 ###############################################################################
 #                                  Docker                                     #
 ###############################################################################
-up:
+up::
 	@docker-compose up --scale node=0 -d
 
-down:
+down::
 	@docker-compose down
 
-logs:
+logs::
 	@docker-compose logs
 
 ###############################################################################
@@ -139,22 +141,22 @@ logs:
 ###############################################################################
 
 # experimental
-neos-create:
+neos-create::
 	@docker-compose exec --user www-data php-fpm ssh-agent composer create-project neos/neos-base-distribution .
 
 # experimental
-ncf: neos-cache-flush
-neos-cache-flush:
+ncf:: neos-cache-flush
+neos-cache-flush::
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush
 
 # experimental
-ndm: neos-doctrine-migrate
-neos-doctrine-migrate:
+ndm:: neos-doctrine-migrate
+neos-doctrine-migrate::
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow doctrine:migrate
 
 # experimental
-nc: neos-clone
-neos-clone:
+nc:: neos-clone
+neos-clone::
 	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
 		read -p "Enter preset name: " PRESETNAME; \
     	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
@@ -162,14 +164,18 @@ neos-clone:
 ###############################################################################
 #                                  SSH                                        #
 ###############################################################################
-ssh:
+ssh::
 	docker-compose exec --user www-data php-fpm ssh-agent $(SHELL)
 
-ssh-root:
+ssh-root::
 	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
 
-ssh-mariadb:
+ssh-mariadb::
 	docker-compose exec mariadb $(SHELL)
 
-ssh-node:
+ssh-node::
 	@docker-compose run --rm --user node node /bin/sh
+
+
+# include own override file for appending commands
+-include ./local/Makefile.override.append
