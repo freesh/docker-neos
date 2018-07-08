@@ -12,8 +12,12 @@ A makefile already includes the basic commands that are executed directly on the
 
 **Basics**
 
-* [Getting Started](basics/getting-started.md)
-* [CLI Commands](basics/commands.md)
+* [Getting Started](docs/basics/getting-started.md)
+* [CLI Commands](docs/basics/commands.md)
+
+**Configuration**
+
+* [Configuration](docs/configuration/configuration.md)
 
 
 ## Getting Started
@@ -63,7 +67,7 @@ The seccond way is to use local override files, wich are not versioned. This ist
 
 To configure versions (php, node), ports, file path and some other stuff, you can make changes through the generated _.env_ file.
 
-For more informations about possible versions, please take a look at the configuration section in the documentation.
+For more informations about possible versions, please take a look at the [configuration](docs/configuration/configuration.md) section in the [documentation](docs/index.md).
 
 ### Override docker-compose settings
 
