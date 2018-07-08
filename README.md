@@ -18,7 +18,7 @@ A makefile already includes the basic commands that are executed directly on the
 **Configuration**
 
 * [Configuration](docs/configuration/configuration.md)
-* [Override and Extend Makefile](docs/configuration/extend-makefile.md)
+* [Override and extend Makefile commands](docs/configuration/extend-makefile.md)
 
 
 ## Getting Started
@@ -76,7 +76,7 @@ To override the default docker-compose.yml you can use the docker-compose.overri
 
 ### Appending and extensing make commands
 
-Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file.
+Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file. See: [Override and extend Makefile commands](docs/configuration/extend-makefile.md)
 
 
 

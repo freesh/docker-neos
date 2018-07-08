@@ -4,13 +4,12 @@
 
 * [Getting Started](basics/getting-started.md)
 * [CLI Commands](basics/commands.md)
-<!-- * [Extending Commands](commands/extending-commands.md)-->
 <!-- * [Add own Commands](commands/own-commands.md)-->
 
 ## Configurations
 
 * [Configuration](configuration/configuration.md)
-* [Override and Extend Makefile](configuration/extend-makefile.md)
+* [Override and extend Makefile commands](configuration/extend-makefile.md)
 <!-- * [.env](configuration/env.md) -->
 <!-- * [Configuration files](configuration/configurations.md) -->
 <!-- * [Overrides](configuration/overrides.md) -->

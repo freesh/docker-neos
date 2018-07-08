@@ -1,4 +1,4 @@
-# Extend Makefile
+# Override and extend Makefile commands
 
 You can extend the existing Makefile commands, or/and add own commands for your local use with additional Makefiles.
 
