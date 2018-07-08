@@ -78,12 +78,15 @@ To override the default docker-compose.yml you can use the docker-compose.overri
 Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file.
 
 
+```make neos-clone``` or ```make nc``` | Clone data from existing neos system with sitegeist/magicwand
+
+
 
 
 ## TBD
 
-- simplify sending custom commands to container
-- configurable configfile paths in .env
-- create prebuild images
-- create testing images
-- build production images command
+- Documentation: Commands
+- Documentation: Configuration and Expandability
+- Documentation: Caching for yarn and composer
+- Documentation: Kickstart projects with butler, not only Neos. TYPO3 and Node projects are possible too.
+- Documentation: Best practice

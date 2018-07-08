@@ -2,63 +2,62 @@ version: "3.6"
 services:
 
   mariadb:
-    image: mariadb:10.1
-    container_name: leanferret-mariadb
+    image: mariadb:${VERSION_MARIADB}
     volumes:
-      - "./.Data/Docker/Database:/var/lib/mysql"
+      - ${CONF_MARIADB_MYCNF}:/etc/mysql/conf.d/my.cnf
+      - ./.Data/Docker/Database:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=toor
-      - MYSQL_DATABASE=app
-      - MYSQL_USER=toor
-      - MYSQL_PASSWORD=toor
+      - MYSQL_ROOT_PASSWORD=${CRED_MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${CRED_MYSQL_DATABASE}
+      - MYSQL_USER=${CRED_MYSQL_USER}
+      - MYSQL_PASSWORD=${CRED_MYSQL_PASSWORD}
     ports:
-      - "8083:3306"
+      - "${PORT_MARIADB}:3306"
 
   webserver:
     image: nginx:alpine
-    container_name: leanferret-webserver
-    working_dir: /application
+    working_dir: /project/app
     volumes:
-      - ./App:/application:cached
-      - ./Docker/Config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./App:/project/app:cached
+      - ${CONF_NGINX_VHOST}:/etc/nginx/conf.d/default.conf
     ports:
-      - "${NGINX_PORT}:80"
+      - "${PORT_NGINX}:80"
 
   php-fpm:
-    image: leanferret-php-fpm:${PHP_VERSION}
+    image: leanferret-php-fpm:${VERSION_PHP}
     build:
       context: ./Docker/Dockerfile/php
       dockerfile: Dockerfile
       args:
-        phpversion: ${PHP_VERSION}
-    container_name: leanferret-php${PHP_VERSION}-fpm
-    working_dir: /application
+        phpversion: ${VERSION_PHP}
+    working_dir: /project/app
     secrets:
       - id_rsa.pub
       - id_rsa
     volumes:
-      - ./App:/application:cached
-      - ./Docker/Config/php/php.ini:/usr/local/etc/php/php.ini
-      - ./Docker/Config/ssh/config:/home/www-data/.ssh/config
-    #environment:
-      #- SSH_AUTH_SOCK:/ssh-agent
+      - ./App:/project/app:cached
+      - ${CONF_PHP_PHPINI}:/usr/local/etc/php/php.ini
+      - ${CONF_SSH}:/home/www-data/.ssh/config
+      - ~/.composer/cache:/home/www-data/.composer/cache:cached
 
   node:
-    image: leanferret-node:${NODE_VERSION}-alpine
+    image: leanferret-node:${VERSION_NODE}-alpine
     build:
       context: ./Docker/Dockerfile/node
       dockerfile: Dockerfile
       args:
-        phpversion: ${NODE_VERSION}
-    container_name: leanferret-node-${NODE_VERSION}
-    working_dir: /application
+        nodeversion: ${VERSION_NODE}
+    working_dir: /project/app
     user: "node"
     volumes:
-      - ./App:/application:cached
-      - node_modules:/application/node_modules
+      - ./App:/project/app:cached
+      - ${CONF_NODE_YARNRC}:/project/.yarnrc
+      - node_yarn_cache:/home/node/yarn
+      - node_modules:/project/app/node_modules
     command: "node"
 
 volumes:
+  node_yarn_cache:
   node_modules:
 
 secrets:
