@@ -4,7 +4,8 @@
 
 ```bash
 $ mkdir myprojectfolder
-$ git clone git@github.com:freesh/docker-neos.git myprojectfolder
+$ cd myprojectfolder
+$ git clone git@github.com:freesh/docker-neos.git .
 $ make setup
 ```
 **2. configure your environment**

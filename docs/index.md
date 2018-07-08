@@ -3,14 +3,13 @@
 ## Basics
 
 * [Getting Started](basics/getting-started.md)
-* [Commands](basics/commands.md)
+* [CLI Commands](basics/commands.md)
 <!-- * [Extending Commands](commands/extending-commands.md)-->
 <!-- * [Add own Commands](commands/own-commands.md)-->
 
 ## Configurations
 
-tbd.
-
+* [Configuration](configuration/configuration.md)
 <!-- * [.env](configuration/env.md) -->
 <!-- * [Configuration files](configuration/configurations.md) -->
 <!-- * [Overrides](configuration/overrides.md) -->
