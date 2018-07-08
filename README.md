@@ -14,6 +14,7 @@ A makefile already includes the basic commands that are executed directly on the
 
 * [Getting Started](docs/basics/getting-started.md)
 * [CLI Commands](docs/basics/commands.md)
+* [Caching](basics/caching.md)
 
 **Configuration**
 

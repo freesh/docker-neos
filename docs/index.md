@@ -4,6 +4,8 @@
 
 * [Getting Started](basics/getting-started.md)
 * [CLI Commands](basics/commands.md)
+* [Caching](basics/caching.md)
+
 <!-- * [Add own Commands](commands/own-commands.md)-->
 
 ## Configurations
