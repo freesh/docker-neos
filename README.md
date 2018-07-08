@@ -8,13 +8,6 @@ After installation, a normal Neos will run immediately. Customizations can be ea
 
 A makefile already includes the basic commands that are executed directly on the containers. e.g. composer, yarn, ssh, flow commands
 
-## Setup
-
-1. clone repository
-2. run ```make setup```
-3. configure .env
-5. copy your project to ./App/
-5. run ```make install``` | this runs ```make up make composer-install make yarn-install make yarn-build```
 
 ## Commands
 

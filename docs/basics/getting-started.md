@@ -5,39 +5,32 @@
 ```bash
 cd myprojectfolder
 git clone git@github.com:freesh/docker-neos.git .
-```
-
-**2. init .env and docker-compose.override.yml**
-
-```bash
 make setup
 ```
+**2. configure your environment**
 
-**3. configure your environment**
+- open .env file and change default versions and paths for your needs.
 
-- open .env file and set your needet versions for php and node.
+**3. Start docker***
 
-_Defaults:_
+Can take some time on first run for building container images. (prebuild images are available soon as possible)
+
 ```
-PHP_VERSION=7.2
-NODE_VERSION=6
-NGINX_PORT=8080
+make up
 ```
 
-**4. create new neos project**
+**4. Move your project files to /App or create new neos project**
 
-1. Create project
-
+1. Init neos-base-distribution
 ```bash
 make ssh
 > composer create-project neos/neos-base-distribution .
 > cp Configuration/Development/Settings.yaml.example Configuration/Development/Settings.yaml
 ```
 
-2. Go to http://localhost:8080/setup and follow the instructions
-Then edit credetials in Configuration/Development/Settings.yaml with DB Data from your .env file.
+2. Edit credetials in Configuration/Development/Settings.yaml with DB Data from your .env file. And for use with docker, set the http baseUri port.
 
-_Defaults:_
+_Example:_
 
 ```yaml
 Neos:
@@ -51,12 +44,18 @@ Neos:
     http:
       baseUri: http://localhost:8080/
 ```
-3. Migrate Database
+3. Migrate database and import demo site or create an own empty site.
 
-```
+```bash
 make ssh
 > ./flow doctrine:migrate
 > ./flow user:create --roles Administrator,Editor admin password Admin User
+
+# import demo site
+> ./flow site:import --package-key Neos.Demo
+
+# or create own sitepackage and site
 > ./flow kickstart:site --package-key Vendor.Domain.Site --site-name MySite
 > ./flow site:create MySite Vendor.Domain.Site
 ```
+**5. Visit http://localhost:8080/**

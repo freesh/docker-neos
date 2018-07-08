@@ -1,23 +1,38 @@
 # Neos-Docker Documentation (WIP)
 
-* [Getting Started](getting-started.md)
-* [Commands](commands.md)
+## Basics
 
+* [Getting Started](basics/getting-started.md)
 
-## Individualisation and extending
+## Commands
 
-* [.env](env.md)
-* [Overrides](overrides.md)
-* [Configuration files](configurations.md)
+tbd.
+
+<!-- * [Basic](commands/basic.md) -->
+<!-- * [Docker](commands/docker.md) -->
+<!-- * [Composer](commands/composer.md) -->
+<!-- * [Yarn](commands/yarn.md) -->
+<!-- * [Neos](commands/neos.md) -->
+
+## Configurations
+
+tbd.
+
+<!-- * [.env](configuration/env.md) -->
+<!-- * [Configuration files](configuration/configurations.md) -->
+<!-- * [Overrides](configuration/overrides.md) -->
+
 
 ## Best practice
 
-**Neos**
+tbd.
 
-* [Neos - init new project](best-practice/neos-init.md)
-* [Neos - init existing project](best-practice/neos-init-existing.md)
-* [Neos - multisite setups](best-practice/neos-multisite.md)
+<!-- **Neos** -->
 
-**docker-compose**
+<!-- * [Neos - init new project](best-practice/neos-init.md) -->
+<!-- * [Neos - init existing project] (best-practice/neos-init-existing.md) -->
+<!-- * [Neos - multisite setups](best-practice/neos-multisite.md) -->
 
-* [Docker - additional services](best-practice/docker-additional-service.md)
+<!-- **docker-compose** -->
+
+<!-- * [Docker - additional services](best-practice/docker-additional-service.md) -->
