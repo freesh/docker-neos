@@ -3,9 +3,9 @@
 **1. Create project folder and get docker-neos**
 
 ```bash
-cd myprojectfolder
-git clone git@github.com:freesh/docker-neos.git .
-make setup
+$ mkdir myprojectfolder
+$ git clone git@github.com:freesh/docker-neos.git myprojectfolder
+$ make setup
 ```
 **2. configure your environment**
 
@@ -23,7 +23,7 @@ make up
 
 1. Init neos-base-distribution
 ```bash
-make ssh
+$ make ssh
 > composer create-project neos/neos-base-distribution .
 > cp Configuration/Development/Settings.yaml.example Configuration/Development/Settings.yaml
 ```
@@ -47,7 +47,7 @@ Neos:
 3. Migrate database and import demo site or create an own empty site.
 
 ```bash
-make ssh
+$ make ssh
 > ./flow doctrine:migrate
 > ./flow user:create --roles Administrator,Editor admin password Admin User
 
