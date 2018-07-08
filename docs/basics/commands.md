@@ -1,6 +1,13 @@
 # Commands
 
-**Misc**
+* [Misc](#misc)
+* [Docker](#docker)
+* [SSH](#ssh)
+* [Composer](#composer)
+* [Yarn](#yarn)
+* [Neos](#neos)
+
+### Misc
 
 ```make help``` | list all commands
 
@@ -8,7 +15,7 @@
 
 ```make config``` | Show configuration from .env and rendered docker-compose.yml
 
-**Docker**
+### Docker
 
 ```make up``` | Run _docker-compose up -d_ and visit: http://localhost:8080
 
@@ -16,7 +23,7 @@
 
 ```make logs``` | Show container logs
 
-**SSH php container**
+### SSH
 
 ```make ssh``` | opens a php bash with ssh [user: www-data]
 
@@ -26,11 +33,11 @@
 
 ```make ssh-node``` | opens a node shell with ssh [user: node]
 
-**Composer**
+### Composer
 
 ```make composer-install``` or ```make ci```| exucute _composer install_ on php container
 
-**Yarn**
+### Yarn
 
 ```make yarn-install``` or ```make yi``` | execute _yarn install_ on node container"
 
@@ -40,7 +47,9 @@
 
 ```make yarn-clear``` or ```make yc``` | empties node_modules volume
 
-**Neos (experimental)**
+### Neos
+
+**_(experimental)_**
 
 ```make neos-cache-flush``` or ```make ncf``` | Clear cache
 
