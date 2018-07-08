@@ -8,111 +8,79 @@ After installation, a normal Neos will run immediately. Customizations can be ea
 
 A makefile already includes the basic commands that are executed directly on the containers. e.g. composer, yarn, ssh, flow commands
 
-## Getting started
+## Documentation
 
-**1. Create project folder and get docker-neos**
+**Basics**
 
-```bash
-cd myprojectfolder
-git clone git@github.com:freesh/docker-neos.git .
-make setup
-```
-**2. configure your environment**
+* [Getting Started](docs/basics/getting-started.md)
+* [CLI Commands](docs/basics/commands.md)
 
-- open .env file and change default versions and paths for your needs.
+**Configuration**
 
-**3. Start docker***
+* [Configuration](docs/configuration/configuration.md)
 
-Can take some time on first run for building container images. (prebuild images are available soon as possible)
 
-```
-make up
-```
+## Getting Started
 
-**4. Move your project files to /App or create new neos project**
-
-1. Init neos-base-distribution
-```bash
-make ssh
-> composer create-project neos/neos-base-distribution .
-> cp Configuration/Development/Settings.yaml.example Configuration/Development/Settings.yaml
-```
-
-2. Edit credetials in Configuration/Development/Settings.yaml with DB Data from your .env file. And for use with docker, set the http baseUri port.
-
-_Example:_
-
-```yaml
-Neos:
-  Flow:
-    persistence:
-      backendOptions:
-        host: 'mariadb'
-        dbname: 'app'
-        user: 'toor'
-        password: 'toor'
-    http:
-      baseUri: http://localhost:8080/
-```
-3. Migrate database and import demo site or create an own empty site.
+**1. Init**
 
 ```bash
-make ssh
-> ./flow doctrine:migrate
-> ./flow user:create --roles Administrator,Editor admin password Admin User
-
-# import demo site
-> ./flow site:import --package-key Neos.Demo
-
-# or create own sitepackage and site
-> ./flow kickstart:site --package-key Vendor.Domain.Site --site-name MySite
-> ./flow site:create MySite Vendor.Domain.Site
+$ mkdir myprojectfolder
+$ cd myprojectfolder
+$ git clone git@github.com:freesh/docker-neos.git .
+$ make setup
 ```
-**5. Visit http://localhost:8080/**
 
-## Basic Commands
+**2. Settings**
 
-**Misc**
+open .env file and change default versions and paths for your needs.
 
-```make help``` | list all commands
+**3. Start docker**
 
-```make setup``` | Setup docker environment
+```bash
+$ make up
+```
 
-```make config``` | Show configuration from .env and rendered docker-compose.yml
+**4. Setup project**
 
-**Docker**
+Copy your project files to _./App_, or ssh in to the php container and init your project with composer. For database credentials take a look in the generated _.env_ file. Don't forget to configure your project for usage with the configured http port.
 
-```make up``` | Run _docker-compose up -d_ and visit: http://localhost:8080
+```bash
+$ make ssh
+> composer ...
+```
 
-```make down``` | Run _docker-compose down_
+**5. Enjoy**
 
-```make logs``` | Show container logs
+http://localhost:8080/
 
-**SSH php container**
 
-```make ssh``` | bash with ssh-agent as www-data user
+## Configurations
 
-```make ssh-root``` | bash with ssh-agent as root user
+You can change default configurations on two ways:
 
-**Composer**
+The first way is to manipulate the default files and versioning these with your project. This is recommended if the changes are project relevant.
 
-```make composer-install``` or ```make ci```| run _composer install_ on php container
+The seccond way is to use local override files, wich are not versioned. This ist recommended for changes there just relevant on your own host stystem.
 
-**Yarn**
+### .env file
 
-```make yarn-install``` or ```make yi``` | execute _yarn install_ on node container"
+To configure versions (php, node), ports, file path and some other stuff, you can make changes through the generated _.env_ file.
 
-```make yarn-build``` or ```make yb``` | execute _yarn build_ on node container"
+For more informations about possible versions, please take a look at the [configuration](docs/configuration/configuration.md) section in the [documentation](docs/index.md).
 
-```make yarn-watch``` or ```make yw``` | execute _yarn watch_ on node container"
+### Override docker-compose settings
 
-**Neos (experimental)**
+To override the default docker-compose.yml you can use the docker-compose.override.yml
 
-```make neos-cache-flush``` or ```make ncf``` | Clear cache
+### Appending and extensing make commands
+
+Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file.
+
 
 ```make neos-clone``` or ```make nc``` | Clone data from existing neos system with sitegeist/magicwand
 
-```make neos-doctrine-migrate:``` or ```make ndm``` | Migrate database
+
 
 
 ## TBD
