@@ -95,7 +95,5 @@ Appending own commands to the make file or extending the existing commands ist a
 
 ## TBD
 
-- Documentation: Configuration and Expandability
-- Documentation: Caching for yarn and composer
-- Documentation: Kickstart projects with butler, not only Neos. TYPO3 and Node projects are possible too.
 - Documentation: Best practice
+
