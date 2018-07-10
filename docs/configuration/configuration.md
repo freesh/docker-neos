@@ -5,8 +5,10 @@ Please use for your individual modifications your own config files in ./local or
 - [PHP](#php)
 - [Nginx](#nginx)
 - [SSH](#ssh)
+  - [SSH config](#ssh-config)
+  - [SSH rsa_id](#ssh-rsa_id)
+  - [SSH agent](#ssh-agent)
 - [MariaDB](#mariadb)
-- [Overrides](#overrides)
 
 # PHP
 
@@ -39,7 +41,48 @@ The nginx.conf can be found and edited in _/Docker/Config/nginx/nginx.conf_. Thi
 
 # SSH
 
-tbd.
+### SSH config
+
+For composer und git usage within the containers, there is a default ssh conf. This is mouted in containers wich need to access git repositories.
+
+_./Docker/Config/ssh/config_
+
+```
+Host *
+    IdentityFile /run/secrets/id_rsa
+    AddKeysToAgent yes
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+```
+
+You can change the path to this file in your .env file: ```CONF_SSH=...```
+
+### SSH rsa_id
+
+Additionally in the _docker-compose.yml_ secrets are with the path to your hosts rsa_id files configured:
+
+```yaml
+# definition:
+secrets:
+  id_rsa.pub:
+    file: ~/.ssh/id_rsa.pub
+  id_rsa:
+    file: ~/.ssh/id_rsa
+
+# used like that:
+services:
+  php-fpm:
+    # ...
+    secrets:
+      - id_rsa.pub
+      - id_rsa
+```
+
+You can change this in an [overriding docker-compose.yml](configuration/override-docker-compose-yml.md) file.
+
+### SSH agent
+
+The ssh agent is transvered with the make commands to the containers. So you have to insert your rsa_id secret just one time per session if needed.
 
 # Node
 
@@ -105,28 +148,3 @@ MariaDB [(none)]> SHOW VARIABLES LIKE '%innodb%';
 
 1 row in set (0.00 sec)
 ```
-
-
-# Overrides
-
-### docker-compose.override.yml
-
-Create a _docker-compose.override.yml_ file to override the default _docker-compose.yml_. This file is automaticly loaded and merged by running ```docker-compose up```. For more informations see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files
-
-Examlple:
-
-```
-version: "3.1"
-services:
-  webserver:
-    ports:
-      - "8080:80" # neos site 1
-      - "8081:80" # neos site 2
-      - "8082:80" # neos site 3
-```
-_This override is used to set multible ports for the webserver, to call different sites in a multi site setup with neos_
-
-
-### own configurationfiles
-
-tbd.
