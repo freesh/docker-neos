@@ -6,16 +6,20 @@
 * [CLI Commands](basics/commands.md)
 * [Caching](basics/caching.md)
 
-<!-- * [Add own Commands](commands/own-commands.md)-->
-
 ## Configurations
 
 * [Configuration](configuration/configuration.md)
+  * [PHP](configuration/configuration.md#php)
+  * [Nginx](configuration/configuration.md#nginx)
+  * [SSH](configuration/configuration.md#ssh)
+  * [MariaDB](configuration/configuration.md#mariadb)
+  * [Overrides](configuration/configuration.md#overrides)
+* [Override configuration files](configuration/override-configuration-files.md)
 * [Override and extend Makefile commands](configuration/extend-makefile.md)
-<!-- * [.env](configuration/env.md) -->
-<!-- * [Configuration files](configuration/configurations.md) -->
-<!-- * [Overrides](configuration/overrides.md) -->
+* [Override or extend docker-compose.yml](configuration/override-docker-compose-yml.md)
+* [Override or extend Dockerfiles](configuration/override-dockerfiles.md)
 
+<!-- * [.env](configuration/env.md) -->
 
 ## Best practice
 

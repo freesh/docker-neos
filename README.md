@@ -19,7 +19,15 @@ A makefile already includes the basic commands that are executed directly on the
 **Configuration**
 
 * [Configuration](docs/configuration/configuration.md)
+  * [PHP](docs/configuration/configuration.md#php)
+  * [Nginx](docs/configuration/configuration.md#nginx)
+  * [SSH](docs/configuration/configuration.md#ssh)
+  * [MariaDB](docs/configuration/configuration.md#mariadb)
+  * [Overrides](docs/configuration/configuration.md#overrides)
+* [Override configuration files](docs/configuration/override-configuration-files.md)
 * [Override and extend Makefile commands](docs/configuration/extend-makefile.md)
+* [Override or extend docker-compose.yml](docs/configuration/override-docker-compose-yml.md)
+* [Override or extend Dockerfiles](docs/configuration/override-dockerfiles.md)
 
 
 ## Getting Started
