@@ -59,7 +59,7 @@ You can change the path to this file in your .env file: ```CONF_SSH=...```
 
 ### SSH rsa_id
 
-Additionally in the _docker-compose.yml_ secrets are with the path to your hosts rsa_id files configured:
+Additionally in the _docker-compose.yml_ secrets are configured with the path to your hosts rsa_id files:
 
 ```yaml
 # definition:
