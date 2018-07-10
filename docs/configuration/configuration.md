@@ -104,7 +104,7 @@ For more informations about _.yarnrc_ please visit https://yarnpkg.com/lang/en/d
 
 # mariadb
 
-## Customize configuration
+### Customize configuration
 
 To add your own configuration you can use the mounted conf file in _Docker/Config/mariadb/my.cnf_. It will be mounted in the container. Don't forget to restart the container.
 
@@ -117,7 +117,7 @@ innodb_large_prefix=1
 ```
 
 
-## Show used confguration
+### Show used confguration
 
 For all used conf variables:
 
