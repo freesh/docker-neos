@@ -122,7 +122,7 @@ innodb_large_prefix=1
 For all used conf variables:
 
 ```bash
-mysql -uroot -utoor
+mysql -uroot -ptoor
 
 MariaDB [(none)]> SHOW VARIABLES;
 ```
