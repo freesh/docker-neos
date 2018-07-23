@@ -86,7 +86,7 @@ For more informations about possible versions, please take a look at the [config
 
 To override the default docker-compose.yml you can use the docker-compose.override.yml
 
-### Appending and extensing make commands
+### Appending and extending make commands
 
 Appending own commands to the make file or extending the existing commands ist also possible with an own configuration file. See: [Override and extend Makefile commands](docs/configuration/extend-makefile.md)
 
