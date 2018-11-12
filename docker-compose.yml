@@ -5,7 +5,7 @@ services:
     image: mariadb:${VERSION_MARIADB}
     volumes:
       - ${CONF_MARIADB_MYCNF}:/etc/mysql/conf.d/my.cnf
-      - ./.Data/Docker/Database:/var/lib/mysql
+      - ./.Data/Docker/Database:/var/lib/mysql:delegated
     environment:
       - MYSQL_ROOT_PASSWORD=${CRED_MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${CRED_MYSQL_DATABASE}
@@ -18,10 +18,10 @@ services:
     image: nginx:alpine
     working_dir: /project/app
     volumes:
-      - ./App:/project/app:cached
+      - ./App:/project/app:delegated
       - ${CONF_NGINX_VHOST}:/etc/nginx/conf.d/default.conf
     ports:
-      - "${PORT_NGINX}:80"
+      - "${PORT_NGINX}:8080"
 
   php-fpm:
     image: leanferret-php-fpm:${VERSION_PHP}
@@ -35,10 +35,10 @@ services:
       - id_rsa.pub
       - id_rsa
     volumes:
-      - ./App:/project/app:cached
+      - ./App:/project/app:delegated
       - ${CONF_PHP_PHPINI}:/usr/local/etc/php/php.ini
       - ${CONF_SSH}:/home/www-data/.ssh/config
-      - ~/.composer/cache:/home/www-data/.composer/cache:cached
+      - ~/.composer/cache:/home/www-data/.composer/cache:delegated
 
   node:
     image: leanferret-node:${VERSION_NODE}-alpine
@@ -50,7 +50,7 @@ services:
     working_dir: /project/app
     user: "node"
     volumes:
-      - ./App:/project/app:cached
+      - ./App:/project/app:delegated
       - ${CONF_NODE_YARNRC}:/project/.yarnrc
       - node_yarn_cache:/home/node/yarn
       - node_modules:/project/app/node_modules
