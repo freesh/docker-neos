@@ -66,7 +66,7 @@ help::
 	@echo ""
 ```
 
-Extensing with a appending echo command in your _./local/Makefile.override.append_ file:
+Extending with a appending echo command in your _./local/Makefile.override.append_ file:
 
 ```makefile
 help::
