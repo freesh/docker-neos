@@ -48,7 +48,9 @@ help::
 	@echo "Neos Commands"
 	@echo "-------------------------------------------------------------------"
 	@echo " neos-cache-flush | ncf       | Flush neos cache"
-	@echo " neos-clone       | nc        | Clone project from choosen preset [package: sitegeist/magicwand]"
+	@echo " neos-doctrine-migrate | ndm       | Execution of doctrine:migrate"
+	@echo " neos-nodeindex-build | nnib       | Execution of nodeindex:build [required package: sitegeist/magicwand]"
+	@echo " neos-clone       | nc        | Clone project from choosen preset [required package: sitegeist/magicwand]"
 
 ###############################################################################
 #                                  SETUP                                    #
