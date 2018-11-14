@@ -105,7 +105,7 @@ config::
 ###############################################################################
 ci:: composer-install
 composer-install::
-	@docker-compose exec --user www-data php-fpm ssh-agent composer install
+	@docker-compose exec --user $$UID:www-data php-fpm ssh-agent composer install
 
 ###############################################################################
 #                                  Yarn                                       #
@@ -144,30 +144,30 @@ logs::
 
 # experimental
 neos-create::
-	@docker-compose exec --user www-data php-fpm ssh-agent composer create-project neos/neos-base-distribution .
+	@docker-compose exec --user $$UID:www-data php-fpm ssh-agent composer create-project neos/neos-base-distribution .
 
 # experimental
 ncf:: neos-cache-flush
 neos-cache-flush::
-	@docker-compose exec --user www-data php-fpm ssh-agent ./flow flow:cache:flush
+	@docker-compose exec --user $$UID:www-data php-fpm ssh-agent ./flow flow:cache:flush
 
 # experimental
 ndm:: neos-doctrine-migrate
 neos-doctrine-migrate::
-	@docker-compose exec --user www-data php-fpm ssh-agent ./flow doctrine:migrate
+	@docker-compose exec --user $$UID:www-data php-fpm ssh-agent ./flow doctrine:migrate
 
 # experimental
 nc:: neos-clone
 neos-clone::
-	@docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:list; \
+	@docker-compose exec --user $$UID:www-data php-fpm ssh-agent ./flow clone:list; \
 		read -p "Enter preset name: " PRESETNAME; \
-    	docker-compose exec --user www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
+    	docker-compose exec --user $$UID:www-data php-fpm ssh-agent ./flow clone:preset $$PRESETNAME --yes
 
 ###############################################################################
 #                                  SSH                                        #
 ###############################################################################
 ssh::
-	docker-compose exec --user www-data php-fpm ssh-agent $(SHELL)
+	docker-compose exec --user $$UID:www-data php-fpm ssh-agent $(SHELL)
 
 ssh-root::
 	docker-compose exec --user root php-fpm ssh-agent $(SHELL)
@@ -176,7 +176,7 @@ ssh-mariadb::
 	docker-compose exec mariadb $(SHELL)
 
 ssh-node::
-	@docker-compose run --rm --user node node /bin/sh
+	@docker-compose run --rm --user $$UID:node node /bin/sh
 
 
 # include own override file for appending commands

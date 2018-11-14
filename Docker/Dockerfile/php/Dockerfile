@@ -1,15 +1,27 @@
 ARG phpversion=7.0
 FROM php:$phpversion-fpm-alpine
 #WORKDIR "/application"
-
 ARG phpversion=7.0
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 ENV PHPIZE_DEPS \
         autoconf \
         g++ \
         libtool \
         make \
         pcre-dev 
-RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
+# Delete existing user/group if uid/gid occupied.
+RUN existing_group=$(getent group "${GROUP_ID}" | cut -d: -f1); \
+    if [[ -n "${existing_group}" ]]; then delgroup "${existing_group}"; fi; \
+    existing_user=$(getent passwd "${USER_ID}" | cut -d: -f1); \
+    if [[ -n "${existing_user}" ]]; then deluser "${existing_user}"; fi; \
+    \
+	addgroup -g "${GROUP_ID}" -S devdoc; \
+	adduser -u "${USER_ID}" -D -S -s /bin/bash -G devdoc devdoc; \
+	adduser devdoc www-data; \
+	sed -i '/^devdoc/s/!/*/' /etc/shadow; \
+    \
+    printf "\e[1;34m### RUN apk add \n \e[0m" \
     && apk --update add --no-cache \
         bash \
         bzip2 \
