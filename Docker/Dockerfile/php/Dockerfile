@@ -2,8 +2,6 @@ ARG phpversion=7.0
 FROM php:$phpversion-fpm-alpine
 #WORKDIR "/application"
 ARG phpversion=7.0
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 ENV PHPIZE_DEPS \
         autoconf \
         g++ \
@@ -11,18 +9,9 @@ ENV PHPIZE_DEPS \
         make \
         pcre-dev 
 # Delete existing user/group if uid/gid occupied.
-RUN existing_group=$(getent group "${GROUP_ID}" | cut -d: -f1); \
-    if [[ -n "${existing_group}" ]]; then delgroup "${existing_group}"; fi; \
-    existing_user=$(getent passwd "${USER_ID}" | cut -d: -f1); \
-    if [[ -n "${existing_user}" ]]; then deluser "${existing_user}"; fi; \
-    \
-	addgroup -g "${GROUP_ID}" -S devdoc; \
-	adduser -u "${USER_ID}" -D -S -s /bin/bash -G devdoc devdoc; \
-	adduser devdoc www-data; \
-	sed -i '/^devdoc/s/!/*/' /etc/shadow; \
-    \
-    printf "\e[1;34m### RUN apk add \n \e[0m" \
+RUN printf "\e[1;34m### RUN apk add \n \e[0m" \
     && apk --update add --no-cache \
+        shadow \
         bash \
         bzip2 \
         freetype-dev \
@@ -39,6 +28,8 @@ RUN existing_group=$(getent group "${GROUP_ID}" | cut -d: -f1); \
     && apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS \
     ###################
     # pecl
+    && usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data \
     && printf "\e[1;34m### RUN pecl install \n \e[0m" \
     && docker-php-source extract \
     && if [[ ${phpversion:0:1} == "5" ]] ; \
