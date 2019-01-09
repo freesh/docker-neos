@@ -24,7 +24,6 @@ services:
       - "${PORT_NGINX}:8080"
 
   php-fpm:
-    image: leanferret-php-fpm:${VERSION_PHP}
     build:
       context: ./Docker/Dockerfile/php
       dockerfile: Dockerfile
